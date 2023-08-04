@@ -1,10 +1,9 @@
 use crate::core::{get_db, OurDBError, ENEMY_KILL_HISTORY_TABLE_NAME, USERSTAT};
 use bevy::prelude::{error, info};
 use rusqlite::{params, Result};
-use std::collections::HashMap;
 use thetawave_interface::spawnable::EnemyMobType;
 
-use thetawave_interface::game::historical_metrics::UserStat;
+use thetawave_interface::game::historical_metrics::{MobsKilledBy1PlayerCacheT, UserStat};
 
 pub(super) fn set_user_stats_for_user_id(
     user_id: usize,
@@ -28,26 +27,6 @@ pub(super) fn set_user_stats_for_user_id(
     ])?;
     Ok(())
 }
-pub(super) fn set_n_shots_fired_for_user_id(
-    user_id: usize,
-    n_shots: usize,
-) -> Result<(), OurDBError> {
-    let stmt_raw = format!(
-        "
-    INSERT OR REPLACE INTO {USERSTAT} (userId, totalShotsFired)
-    VALUES (?1,  ?2)
-    ON CONFLICT DO UPDATE SET ?2"
-    );
-    let conn = get_db()?;
-    info!(
-        "Preparing db upsert {} with param n_shots={}",
-        &stmt_raw, n_shots
-    );
-    conn.prepare(&stmt_raw)?
-        .execute(params![user_id, n_shots])?;
-    Ok(())
-}
-
 fn _get_user_stats(user_id: usize) -> Result<UserStat, OurDBError> {
     let conn = get_db()?;
     let stmt_raw = format!(
@@ -106,7 +85,7 @@ pub(super) fn set_mob_killed_count_for_user(
 
 fn _get_mob_killed_counts_for_user(
     user_id: usize,
-) -> Result<HashMap<EnemyMobType, usize>, OurDBError> {
+) -> Result<MobsKilledBy1PlayerCacheT, OurDBError> {
     let stmt_raw = format!(
         "
     SELECT enemyMobType, nKilled FROM  {ENEMY_KILL_HISTORY_TABLE_NAME} 
@@ -138,12 +117,12 @@ fn _get_mob_killed_counts_for_user(
         .collect())
 }
 
-pub fn get_mob_killed_counts_for_user(user_id: usize) -> HashMap<EnemyMobType, usize> {
+pub fn get_mob_killed_counts_for_user(user_id: usize) -> MobsKilledBy1PlayerCacheT {
     _get_mob_killed_counts_for_user(user_id).unwrap_or_else(|e| {
         error!(
             "Failed to get mob kill counts from db. Empty result fallback. {}",
             e
         );
-        HashMap::default()
+        Default::default()
     })
 }
