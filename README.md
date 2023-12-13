@@ -1,4 +1,4 @@
-# <img src="https://assets.thetawave.metalmancy.tech/promo/thetawave_logo_animated_banner.gif">
+![Thetawave logo](https://assets.thetawave.metalmancy.tech/promo/thetawave_logo.webp "Thetawave")
 
 [![Demo](https://img.shields.io/badge/Demo-Play%20Now%21-blue)](https://thetawave.metalmancy.tech)
 [![Build](https://github.com/thetawavegame/thetawave/actions/workflows/ci.yml/badge.svg?)](https://github.com/thetawavegame/thetawave/actions/workflows/ci.yml)
@@ -12,8 +12,11 @@ Thetawave is a physics-based space shooter with procedurally generated levels, d
 ## Gameplay
 
 <div>
-  <img src="https://assets.thetawave.metalmancy.tech/promo/gameplay_1.gif" width="400">
-  <img src="https://assets.thetawave.metalmancy.tech/promo/gameplay_2.gif" width="400">
+  <video src="https://assets.thetawave.metalmancy.tech/promo/gameplay_1.webm" width="400" /> 
+  <video width="400" autoplay controls loop muted> 
+    <source src="https://assets.thetawave.metalmancy.tech/promo/gameplay_2.webm">
+    <source src="https://assets.thetawave.metalmancy.tech/promo/gameplay_2.mp4">
+  </video>
 </div>
 
 ## Controls
@@ -30,18 +33,18 @@ Thetawave is a physics-based space shooter with procedurally generated levels, d
 
 **Game Over Conditions:**
 - When all players' health bars are depleted from damage.
-- When the blue defense bar is depleted (occurs when enemies reach the bottom of the arena).
+- When the blue planet defense bar is depleted (occurs when enemies reach the bottom of the arena).
 
 **Power-Ups:**
 
 <table>
   <tr>
     <td><img src="https://assets.thetawave.metalmancy.tech/promo/health_wrench.png"></td>
-    <td>Wrenches restore health.</td>
+    <td>Wrenches restore your health.</td>
   </tr>
   <tr>
     <td><img src="https://assets.thetawave.metalmancy.tech/promo/money.png"></td>
-    <td>Gems increase fire rate.</td>
+    <td>Gems increase your fire rate.</td>
   </tr>
   <tr>
     <td><img src="https://assets.thetawave.metalmancy.tech/promo/armor.png"></td>
