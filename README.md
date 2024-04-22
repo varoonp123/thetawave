@@ -56,6 +56,42 @@ Thetawave is a physics-based space shooter with procedurally generated levels, d
 **Special Mechanics:**
 - Letting cargo hauler mobs reach the bottom of the arena heals the defense bar.
 
+## Building and Playing Locally
+
+While you can play [in the browser](https://thetawave.metalmancy.tech) (works best on Google Chrome...for now), you can
+play offline in a few ways. The simplest way to play a native build of the game offline is to download the latest
+[Github release](https://github.com/thetawavegame/thetawave/releases) for Windows or Linux. Then run the executable.
+
+To run the game after compiling locally, you need to download the assets.
+
+One way is to download a recent Linux `.tar.gz` release, and extract the `assets/` directory in the tarball into your
+local `assets/` directory. We do so in the following Bash command. In Windows, just copy the files manually. Replace the
+link with the latest release, especially if you are running off of the `main` branch.
+
+```bash
+
+curl -Ls https://github.com/thetawavegame/thetawave/releases/download/v0.2.0/thetawave-0.2.0-x86_64-unknown-linux-gnu.tar.gz  \
+    | tar -xz -C assets/ --strip-components=2 --wildcards "*/assets/*"
+```
+
+Then compile/run using [Cargo](https://github.com/rust-lang/cargo) as follows.
+
+```bash
+cargo run --release
+```
+
+We have the following install features
+
+- `cli` - Enables start up parameters on the built `thetawave` executable.
+- `storage` - Enables writing user stats to a local Sqlite database.
+- `arcade` - Enables arcade-specific features, such as lighting effects.
+
+One can run using install features as follows.
+
+```bash
+cargo run --release --features "storage,cli,arcade"
+```
+
 ## How to Contribute
 
 We welcome contributions from all community members. Your insights and improvements help us grow.
