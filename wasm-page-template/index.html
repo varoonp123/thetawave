@@ -9,6 +9,26 @@
 
   <body>
     <div class="screen scanlines">
+      <div id="chrome-warning" style="display: none">
+        <div class="warning-text">
+          <p>
+            This website is optimized for Google Chrome. For the best
+            performance and audio quality, please use Chrome.
+          </p>
+          <p>
+            If you don't have Chrome installed, you can download it
+            <a
+              id="chrome-button"
+              href="https://www.google.com/chrome/"
+              target="_blank"
+              >here</a
+            >.
+          </p>
+        </div>
+        <div class="warning-action-buttons">
+          <a id="close-warning" onclick="closeWarning()">【 CLOSE 】</a>
+        </div>
+      </div>
       <div class="flexbox hcenter screen-content">
         <div id="logo-container" class="hcenter">
           <img
@@ -19,36 +39,34 @@
         </div>
         <div id="link-container" class="flexbox hcenter">
           <div class="hdiv"></div>
-          <a id="trigger_game_button" href="#">Play</a>
+          <a class="menu-button" id="trigger_game_button" href="#">Play</a>
           <div class="hdiv"></div>
-          <a href="https://github.com/thetawavegame" target="_blank"
+          <a
+            class="menu-button"
+            href="https://github.com/thetawavegame"
+            target="_blank"
             >Source Code</a
           >
           <div class="hdiv"></div>
         </div>
       </div>
-    <script type="module" src="thetawave-init.js"></script>
-      <div id="chrome-warning" style="display: none">
-        <p>
-          This website is optimized for Google Chrome. For the best performance
-          and audio quality, please use Chrome.
-        </p>
-        <p>
-          If you don't have Chrome installed, you can download it
-          <a href="https://www.google.com/chrome/">here</a>.
-        </p>
-      </div>
+      <script type="module" src="thetawave-init.js"></script>
     </div>
     <script>
       function isChrome() {
         return (
           /Chrome/.test(navigator.userAgent) &&
           /Google Inc/.test(navigator.vendor)
-        ); }
-        
-          if (!isChrome()) {
-            document.getElementById("chrome-warning").style.display = "block";
-          }
+        );
+      }
+
+      if (!isChrome()) {
+        document.getElementById("chrome-warning").style.display = "block";
+      }
+
+      const closeWarning = () => {
+        document.getElementById("chrome-warning").style.display = "none";
+      };
     </script>
   </body>
 </html>

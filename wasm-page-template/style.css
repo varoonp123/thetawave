@@ -6,19 +6,15 @@
   --bgColorLight: #2e206b;
   --primaryColor: #fd145a;
   --primaryGradient: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, var(--primaryColor) 50%, rgba(0, 0, 0, 0) 100%);
+  --warningBackground: #ff3333;
+  --warningText: #000000;
+  --warningButton: #000000;
+  --warningButtonHovered: #651c1c;
+  --warningButtonGlow: #dc3c26;
+  --warningBorder: #ff3333;
+  --warningShadow: rgba(255, 0, 0, 0.5);
 }
-#chrome-warning {
-  background-color: var(--bg-color); /* Light red */
-  border: 1px solid #ff3333; /* Red border */
-  color: #ff3333; /* Red text */
-  padding: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-  width: 80%;
-  margin-left: 10%; /* Add margin on the left */
-  margin-right: 10%;
-  font-size: 16pt;
-}
+
 ::selection {
   background-color: var(--primaryColor);
   color: var(--bgColor);
@@ -26,7 +22,6 @@
 
 * {
   font-family: 'VT323', serif;
-  color: var(--primaryColor);
 }
 
 html, body {
@@ -34,22 +29,19 @@ html, body {
   padding: 0;
   min-height: 100%;
   width: 100%;
+  color: var(--primaryColor);
 }
 
 body {
   background: radial-gradient(
-      circle,
-      var(--bgColorLight) 0%,
-      var(--bgColor) 50%,
-      var(--bgColorDark) 100%
+          circle,
+          var(--bgColorLight) 0%,
+          var(--bgColor) 50%,
+          var(--bgColorDark) 100%
   ) center;
   animation: glow 4s ease-in-out infinite alternate;
   font-family: 'VT323', serif;
   display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: space-between; /* Centers the content along the vertical axis */
-    align-items: center; /* Centers the content along the horizontal axis */
 }
 
 canvas {
@@ -59,7 +51,8 @@ canvas {
   box-shadow: 0 0 18rem black, 0 0 12rem black, 0 0 6rem black;
 }
 
-a {
+a.menu-button {
+  color: var(--primaryColor);
   outline: none;
   font-size: 3rem;
   width: 100%;
@@ -68,7 +61,7 @@ a {
   line-height: 4rem;
 }
 
-a:active, a:focus, a:hover {
+a.menu-button:active, a.menu-button:focus, a.menu-button:hover {
   background: var(--primaryGradient);
   color: var(--bgColor);
   animation: glitch 0.3s cubic-bezier(0.5, 1, 0.5, 1) both;
@@ -103,10 +96,10 @@ a:active, a:focus, a:hover {
 .scanlines {
   position: absolute;
   background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.2) 0%,
-      rgba(128, 128, 128, 0.2) 50%,
-      rgba(0, 0, 0, 0.2) 100%
+          to bottom,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(128, 128, 128, 0.2) 50%,
+          rgba(0, 0, 0, 0.2) 100%
   );
   background-size: 100% 6px;
   animation: move-scanlines 60s linear infinite;
@@ -173,4 +166,85 @@ a:active, a:focus, a:hover {
   100% {
     transform: translate(0);
   }
+}
+
+@keyframes warning-background {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes warning-button-pulse {
+  0% {
+    font-size: 2.5rem;
+  }
+  100% {
+    font-size: 2.7rem;
+  }
+
+}
+
+#chrome-warning {
+  background-color: var(--warningBackground);
+  animation: warning-background 1s infinite alternate;
+  transition: background-color 0.5s;
+  color: var(--warningText);
+  box-shadow: 0 0 10px 5px var(--warningShadow);
+  position: absolute;
+  padding: 16px 0;
+  text-align: center;
+  width: 100%;
+  font-size: 2rem;
+  z-index: 1000;
+  pointer-events: auto;
+  margin: 0;
+  line-height: 3rem;
+}
+
+#chrome-warning p {
+  margin: 0;
+  padding: 0;
+}
+
+#chrome-warning ::selection {
+  background-color: #ffaeae;
+  color: var(--bgColorLight);
+}
+
+#chrome-button {
+  transition: font-size 0.75s;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--warningButton);
+}
+
+#chrome-button:active, #chrome-button:focus, #chrome-button:hover {
+  font-size: 2.75rem;
+  transition: font-size 0.75s;
+  color: var(--warningButtonHovered);
+}
+
+#close-warning {
+  cursor: pointer;
+  animation: warning-button-pulse 0.75s infinite alternate;
+  color: var(--warningButton);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#close-warning:active, #close-warning:focus, #close-warning:hover {
+  font-size: 3rem;
+  animation: none;
+}
+
+.warning-action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
